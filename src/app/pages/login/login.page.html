@@ -1,0 +1,60 @@
+<ion-content [fullscreen]="true">
+
+  <div class="header">
+    <ion-img class="logo" src="../../../assets/vote.png" alt="logo"></ion-img>
+    <ion-title class="title" size="large">Iniciar Sesión</ion-title>
+  </div>
+
+  <form [formGroup]="ionicForm" novalidate>
+    <div class="ion-padding">
+      <ion-item>
+        <ion-input placeholder="Usuario" formControlName="email" class="input" />
+      </ion-item>
+
+      <div class="ionic-form-container">
+
+        <div class="errordiv" *ngIf="ionicForm.controls['email'].touched && ionicForm.controls['email'].invalid">
+          <ion-text *ngIf="ionicForm.controls['email'].errors?.required" class="errorInput" color="danger">Por favor
+            ingresa tu usuario.</ion-text>
+          <!-- <ion-text *ngIf="ionicForm.controls['email'].errors?.pattern" class="errorInput" color="danger">Por favor ingresa un correo electrónico válido.</ion-text> -->
+        </div>
+      </div>
+      <ion-item>
+        <ion-input [type]="showPassword ? 'text' : 'password'" placeholder="Contraseña" formControlName="password"
+          class="input"></ion-input>
+        <ion-button (click)="togglePassword()" fill="clear" slot="end">
+          <ion-icon [name]="showPassword ? 'eye-off' : 'eye'"></ion-icon>
+        </ion-button>
+      </ion-item>
+
+      <div class="errordiv" *ngIf="ionicForm.controls['password'].touched && ionicForm.controls['password'].invalid">
+        <ion-text *ngIf="ionicForm.controls['password'].errors?.required" class="errorInput" color="danger">Por favor
+          ingresa tu contraseña.</ion-text>
+        <!-- <ion-text *ngIf="errorControl.password.errors?.pattern" class="errorInput" color="danger">Password Must contain at least one character</ion-text> -->
+      </div>
+
+      <div class="centered-container">
+
+        <div class="rememberuser">
+          <ion-checkbox formControlName="rememberCredentials"></ion-checkbox>
+          <ion-label>Recordar mi usuario</ion-label>
+        </div>
+
+        <div class="forgotpassword">
+          <a [routerLink]="['/forgot-password']">Olvidé mi contraseña</a>
+        </div>
+
+      </div>
+
+      <div class="btn">
+        <button class="btn__content" type="submit" (click)="login()">
+          Ingresar
+        </button>
+      </div>
+
+    </div>
+    <div class="signupLink">
+      <p class="p">Nuevo miembro? <a [routerLink]="['/signup']">Registrate aquí</a></p>
+    </div>
+  </form>
+</ion-content>
