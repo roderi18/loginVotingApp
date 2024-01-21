@@ -6,7 +6,7 @@
   </ion-header>
 
   <div class="header">
-    <ion-img src="../../../assets/logo.png" alt="logo" style="height: 150px;"></ion-img>
+    <ion-img src="../../../assets/vote.png" alt="logo" class="logo"></ion-img>
     <ion-title class="title" size="large" style="font-weight: bold;">Registrarse</ion-title>
   </div>
 
@@ -16,81 +16,59 @@
         <ion-input class="input" formControlName="fullname" placeholder="Nombre completo" />
         <ion-icon slot="end" name="person-outline"></ion-icon>
       </ion-item>
-      <div style="padding-top: -26px;padding-bottom: 16px;"
-        *ngIf="this.ionicForm.controls?.['fullname'].touched && this.ionicForm.controls?.['fullname'].invalid">
-        <ion-text *ngIf="errorControl.fullname.errors?.required" class="errorInput" color="danger">Fullname is
-          required.</ion-text>
+      <div class="errordiv" *ngIf="this.ionicForm.controls?.['fullname'].touched && this.ionicForm.controls?.['fullname'].invalid">
+        <ion-text class="errorInput" class="errorInput" *ngIf="errorControl.fullname.errors?.required" class="errorInput" color="danger">Por favor ingrese su
+          nombre.</ion-text>
       </div>
 
       <ion-item>
-        <ion-input class="input" formControlName="email" placeholder="Digite su email" />
+        <ion-input class="input" formControlName="email" placeholder="Digite su correo electrónico" />
         <ion-icon slot="end" name="mail-outline"></ion-icon>
       </ion-item>
-      <div style="padding-top: -26px;padding-bottom: 16px;"
-        *ngIf="this.ionicForm.controls?.['email'].touched && this.ionicForm.controls?.['email'].invalid">
-        <ion-text *ngIf="errorControl.email.errors?.required" class="errorInput" color="danger">Email is
-          required.</ion-text>
-        <ion-text *ngIf="errorControl.email.errors?.pattern" class="errorInput" color="danger">Please provide valid
-          email.</ion-text>
+      <div class="errordiv" *ngIf="this.ionicForm.controls?.['email'].touched && this.ionicForm.controls?.['email'].invalid">
+        <ion-text class="errorInput" *ngIf="errorControl.email.errors?.required" class="errorInput" color="danger">Por favor ingrese su
+          correo electrónico</ion-text>
+        <ion-text class="errorInput" *ngIf="errorControl.email.errors?.pattern" class="errorInput" color="danger">Ingrese un correo
+          electrónico válido</ion-text>
       </div>
-      
+
       <ion-item>
-        <ion-input class="input" type="password" formControlName="password" placeholder="Digite su contraseña" />
+        <ion-input [type]="showPassword ? 'text' : 'password'" class="input" type="password" formControlName="password" placeholder="Digite su contraseña" class="input"/>
         <ion-icon slot="end" name="lock-closed-outline"></ion-icon>
+        <!-- <ion-button (click)="togglePassword()" fill="clear" slot="end">
+          <ion-icon [name]="showPassword ? 'eye-off' : 'eye'"></ion-icon>
+        </ion-button> -->
       </ion-item>
-      <div style="padding-top: -26px;padding-bottom: 16px;"
-        *ngIf="this.ionicForm.controls?.['password'].touched && this.ionicForm.controls?.['password'].invalid">
-        <ion-text *ngIf="errorControl.password.errors?.required" class="errorInput" color="danger">Password is
-          required.</ion-text>
-        <ion-text *ngIf="errorControl.password.errors?.required" class="errorInput" color="danger">Password must be more
-          than 8 length containing
-          at least one character.
-          at least one Capital letter.
-          at least one number.
+      <div class="errordiv" *ngIf="this.ionicForm.controls?.['password'].touched && this.ionicForm.controls?.['password'].invalid">
+        <ion-text class="errorInput" *ngIf="errorControl.password.errors?.required" class="errorInput" color="danger">Ingrese su
+          contraseña</ion-text>
+        <ion-text class="errorInput" *ngIf="errorControl.password.errors?.required" class="errorInput" color="danger">Su contraseña debería
+          tener al menos 8 digitos, una letra minúscula y mayúscula, y al menos un número.
         </ion-text>
       </div>
+
       <ion-item>
-        <ion-input class="input" type="numeric" formControlName="contact" placeholder="Digite su contacto" />
+        <ion-input class="input" type="numeric" formControlName="contact" placeholder="Ingrese su número de celular" />
         <ion-icon slot="end" name="call-outline"></ion-icon>
       </ion-item>
-      <div style="padding-top: -26px;padding-bottom: 16px;"
-        *ngIf="this.ionicForm.controls?.['contact'].touched && this.ionicForm.controls?.['contact'].invalid">
-        <ion-text *ngIf="errorControl.contact.errors?.required" class="errorInput" color="danger">Contact is
-          required..</ion-text>
-        <ion-text *ngIf="errorControl.contact.errors?.pattern" class="errorInput" color="danger">Contact should contain
-          only numbers..</ion-text>
-        <ion-text *ngIf="errorControl.contact.errors?.minlength" class="errorInput" color="danger">Contact should be
-          less than 10 digit..</ion-text>
+      <div class="errordiv" *ngIf="this.ionicForm.controls?.['contact'].touched && this.ionicForm.controls?.['contact'].invalid">
+        <ion-text class="errorInput" *ngIf="errorControl.contact.errors?.required" class="errorInput" color="danger">Su número telefónico
+          es requerido.</ion-text>
+        <ion-text class="errorInput" *ngIf="errorControl.contact.errors?.pattern" class="errorInput" color="danger">Dbería contener solo
+          números.</ion-text>
+        <ion-text class="errorInput" *ngIf="errorControl.contact.errors?.minlength" class="errorInput" color="danger">Debería tener al
+          menos 10 dígitos.</ion-text>
 
       </div>
 
-      <div style="
-      display: flex; 
-      justify-content: center; 
-      align-items: center;
-      margin-top: 30px;
-      ">
-        <button (click)="signUP()" class="ion-padding"
-          style="width: 80%; font-size: 1.5rem; font-weight: bold; background-color: #247FBB; color: white; border-radius: 20px;">
+      <div class="btn">
+        <button (click)="signUP()" class="btn__content">
           Registrarse
         </button>
       </div>
-
-      <!-- <p>Or</p> -->
-
-      <!-- <ion-button color="light" (click)='this.signUpWithGoogle()'>
-        <ion-icon src="assets/icon/google.svg"></ion-icon>
-        <ion-text>Continue with Google</ion-text>
-      </ion-button> -->
-
       <div class="loginLink">
-        <p class="p">Ya eres miembro? <a [routerLink]="['/login']" style="color: #247FBB">Iniciar Seccion</a></p>
+        <p class="p">Ya eres miembro? <a [routerLink]="['/login']" style="color: #247FBB">Iniciar Sesión</a></p>
       </div>
     </div>
-
-
-
-
   </form>
-
 </ion-content>

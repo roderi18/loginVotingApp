@@ -1,18 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
-
+import { IonInput } from '@ionic/angular';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.page.html',
   styleUrls: ['./signup.page.scss'],
 })
-export class SignupPage implements OnInit {
+export class SignupPage implements OnInit, AfterViewInit {
+  @ViewChild('passwordInput', { static: false }) passwordInput: IonInput;
   ionicForm: FormGroup;
-
+  showPassword = false;
 
   constructor(private toastController: ToastController, private loadingController: LoadingController, private authService: AuthServiceService, private router: Router, public formBuilder: FormBuilder) {
 
@@ -46,7 +47,10 @@ export class SignupPage implements OnInit {
       ],
     });
   }
-
+  ngAfterViewInit() {
+    // Asegurarse de que el elemento IonInput esté disponible antes de cambiar su tipo
+    this.togglePasswordVisibility();
+  }
 
   get errorControl() {
     // console.log(this.ionicForm.controls)
@@ -91,5 +95,18 @@ export class SignupPage implements OnInit {
     });
 
     await toast.present();
+  }
+
+  togglePasswordVisibility() {
+    // Cambiar el tipo de entrada solo si el elemento IonInput está disponible
+    if (this.passwordInput) {
+      const inputType = this.showPassword ? 'text' : 'password';
+      this.passwordInput.type = inputType;
+    }
+  }
+
+  togglePassword() {
+    this.showPassword = !this.showPassword;
+    this.togglePasswordVisibility();
   }
 }
